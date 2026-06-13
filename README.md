@@ -1,41 +1,57 @@
 # Oscilloscope Viewer
 
-オシロスコープの保存波形を読み込み、表示・画像保存・FWHM計算を行うPyQtアプリです。
+A PyQt desktop application for loading and plotting oscilloscope waveforms,
+saving figures, and calculating the full width at half maximum (FWHM).
 
-## 対応機種
+## Supported Oscilloscopes
 
 - LeCroy WaveJet 354A
 - Rohde & Schwarz RTE1204
 
-画面上部の `Oscilloscope` から機種を手動選択してからファイルを開きます。
+Select the oscilloscope model from the `Oscilloscope` menu at the top of the
+window before opening an export file.
 
 ### LeCroy WaveJet 354A
 
-従来形式のCSVを1ファイル選択します。`Ch1 V` から始まる列ヘッダーより前をメタデータ、後ろを波形として読み込みます。
+Select a single CSV export file. The reader treats the lines before the column
+header beginning with `Ch1 V` as metadata and the following lines as waveform
+data.
 
 ### Rohde & Schwarz RTE1204
 
-同じ名前で出力される次の2ファイルを同じフォルダに置きます。
+Keep the two exported files with matching names in the same directory:
 
 ```text
 measurement.csv
 measurement.Wfm.csv
 ```
 
-どちらを選択しても、もう一方を自動的に探して読み込みます。
+You can select either file. The application automatically finds and loads the
+matching file.
 
-## 開発環境
+## Development
+
+Install the dependencies and run the application with:
 
 ```powershell
 uv sync
 uv run oscilloscope.py
+```
+
+Run the automated tests with:
+
+```powershell
 uv run pytest
 ```
 
-## Windows exeの作成
+## Building the Windows Executable
+
+Run:
 
 ```powershell
 .\build_exe.cmd
 ```
 
-完成したファイルは `dist\OscilloscopeViewer.exe` に作成されます。`--onefile` 形式なので配布は簡単ですが、起動はPython環境から実行する場合より少し遅くなります。
+The executable is created at `dist\OscilloscopeViewer.exe`. It is packaged as
+a single file for easy distribution. Startup may be slightly slower than
+running the application directly from the Python environment.
