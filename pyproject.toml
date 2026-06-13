@@ -1,0 +1,31 @@
+[project]
+name = "oscilloscope-viewer"
+version = "0.1.0"
+description = "Desktop waveform viewer for laboratory oscilloscopes"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.8",
+    "numpy>=1.26",
+    "pyqt6>=6.6",
+]
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.0",
+    "pytest>=8.0",
+]
+
+[project.gui-scripts]
+oscilloscope-viewer = "oscilloscope:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["oscilloscope_viewer"]
+include = ["oscilloscope.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
